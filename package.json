@@ -1,0 +1,24 @@
+{
+  "name": "wgdown",
+  "version": "1.0.1",
+  "description": "multi-process download",
+  "main": "wgdown.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wind2esg/wgdown.git"
+  },
+  "keywords": [
+    "node",
+    "download",
+    "multi-process"
+  ],
+  "dependencies": {
+    "request": "~2.88.0"
+  },
+  "author": "wind2esg",
+  "email": "wind2esg@gmail.com",
+  "license": "MIT"
+}
