@@ -7,7 +7,7 @@ However when using this async, download uncompletely problems come.
 This tool uses child_process to act async download and Retry if the file is download uncompletely.
 
 ## key points
-+ A queue maintains resource url and local download path.
++ `options.list` A queue maintains resource url and local download path.
 + Child processes consume the item in queue. Push the item back to the queue for retrying. `shift()` follows `fork()` because of async.
 + Compare `response.header["content-length"]` with `WriteStream.bytesWritten` to check whether the file is complete. if not, retry.
 + When error occurs, Retry.
@@ -16,7 +16,6 @@ This tool uses child_process to act async download and Retry if the file is down
 
 ## useage
 ### install
-Add dependence to package.json  
 `npm install wgdown`
 
 ### use
