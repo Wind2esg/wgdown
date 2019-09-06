@@ -17,8 +17,7 @@ This tool uses child_process to act async download and Retry if the file is down
 ## useage
 ### install
 Add dependence to package.json  
-`"wgdown" : "~1.0.1"`  
-`npm install`
+`npm install wgdown`
 
 ### use
 `require('wgdown')(options);`
