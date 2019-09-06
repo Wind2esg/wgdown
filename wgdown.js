@@ -3,7 +3,6 @@ const childProcess = require('child_process');
 const request = require('request');
 
 // parent
-
 let wgdown = (options)=>{
 
     let parent = (options)=>{
@@ -83,13 +82,10 @@ let wgdown = (options)=>{
 
 }
 
-module.exports = wgdown;
-
+if(module.parent){
+    module.exports = wgdown;
+}else{
 // child
-
-let serverPath = process.argv[2];
-let localPath = process.argv[3];
-let size = 0;
 
 // result
 // '0' init
@@ -99,64 +95,66 @@ let size = 0;
 // '0' downloaded 
 // '5' error
 
-return new Promise((resolve, reject)=>{
-    let msg = {
-        localPath: localPath,
-        serverPath: serverPath,
-        result: '0'
-    };
+    return new Promise((resolve, reject)=>{
+        let msg = {
+            serverPath: process.argv[2],
+            localPath: process.argv[3],
+            size: 0,
+            result: '0'
+        };
 
-    if(fs.existsSync(localPath)){
-        msg.result = '1';
-        process.send(JSON.stringify(msg));
-        resolve();
-        return ;
-    }
+        if(fs.existsSync(msg.localPath)){
+            msg.result = '1';
+            process.send(JSON.stringify(msg));
+            resolve();
+            return ;
+        }
 
-    let rs = request(serverPath);
-    rs.on('error', (err)=>{
-              console.log("error:  " + serverPath + "   " + err);
-              msg.result = '5';
-              process.send(JSON.stringify(msg));
-              resolve();
-              return ;
-              })
-      .on('response', (response)=>{
-          if(response.statusCode == 200){
-          // console.log("download :  " + serverPath);
-          // console.log("content-length:  " +  response.headers["content-length"]);
-              size = response.headers["content-length"];
-              let ws = fs.createWriteStream(localPath);
-              rs.pipe(ws.on('error',(err)=>{
-                      console.log(localPath);
-                      console.log(err);
-                      ws.end();
-                      msg.result = '5';
-                      process.send(JSON.stringify(msg));
-                      resolve();
-                      return ;
-                  })
-                  .on('finish',()=>{
-                      // console.log(localPath + ' finished');
-                      if( size > ws.bytesWritten){
-                      // console.log("problem @:  "  + serverPath);
-                          ws.end();
-                          msg.result = '3';
-                          process.send(JSON.stringify(msg));
-                          resolve();
-                          return ;
-                      }
-                      ws.end();
-                      process.send(JSON.stringify(msg));     
-                      resolve();
-                      return ;
-                  })
-                )
-          }else{
-              msg.result = '2';
-              process.send(JSON.stringify(msg));
-              resolve();
-              return ;
-          }
-      })
-  });
+        let rs = request(msg.serverPath);
+        rs.on('error', (err)=>{
+                console.log("error:  " + msg.serverPath + "   " + err);
+                msg.result = '5';
+                process.send(JSON.stringify(msg));
+                resolve();
+                return ;
+                })
+        .on('response', (response)=>{
+            if(response.statusCode == 200){
+            // console.log("download :  " + msg.serverPath);
+            // console.log("content-length:  " +  response.headers["content-length"]);
+                size = response.headers["content-length"];
+                let ws = fs.createWriteStream(msg.localPath);
+                rs.pipe(ws.on('error',(err)=>{
+                        console.log(msg.localPath);
+                        console.log(err);
+                        ws.end();
+                        msg.result = '5';
+                        process.send(JSON.stringify(msg));
+                        resolve();
+                        return ;
+                    })
+                    .on('finish',()=>{
+                        // console.log(msg.localPath + ' finished');
+                        if( size > ws.bytesWritten){
+                        // console.log("problem @:  "  + msg.serverPath);
+                            ws.end();
+                            msg.result = '3';
+                            process.send(JSON.stringify(msg));
+                            resolve();
+                            return ;
+                        }
+                        ws.end();
+                        process.send(JSON.stringify(msg));     
+                        resolve();
+                        return ;
+                    })
+                    )
+            }else{
+                msg.result = '2';
+                process.send(JSON.stringify(msg));
+                resolve();
+                return ;
+            }
+        })
+    });
+}
