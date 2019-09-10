@@ -3,7 +3,7 @@ const childProcess = require('child_process');
 const request = require('request');
 
 // parent
-let wgdown = (options)=>{
+const wgdown = (options)=>{
 
     let parent = (options)=>{
         if (options.list.length == 0){
@@ -78,8 +78,6 @@ let wgdown = (options)=>{
     for (let i = 0; i < options.cpus; i++){
         parent(options);
     }
-
-
 }
 
 if(module.parent){
@@ -94,7 +92,6 @@ if(module.parent){
 // '3' download but problem
 // '0' downloaded 
 // '5' error
-
     return new Promise((resolve, reject)=>{
         let msg = {
             serverPath: process.argv[2],
