@@ -9,7 +9,10 @@ const wgdown = (options)=>{
         if (options.list.length == 0){
           return ;
         }
-    
+        
+        if(options.quiet == undefined || options.quiet != false){
+            options.quiet = true;
+        }
         let errorCount = {};
     
         log.child++;
@@ -19,19 +22,28 @@ const wgdown = (options)=>{
                         let msg = JSON.parse(message);
                         switch(msg.result){
                             case '0':
-                                console.log("downloaded:  " + msg.serverPath);
+                                if(options.quiet){
+                                    console.log("downloaded:  " + msg.serverPath);
+                                }
+                                
                                 log.download++;
                                 break;
                             case '1':
-                                console.log("exists on local:  " + msg.serverPath);
+                                if(options.quiet){
+                                    console.log("exists on local:  " + msg.serverPath);
+                                }
                                 log.exist++;
                                 break;
                             case '2':
-                                console.log("no resource on server:  " + msg.serverPath);
+                                if(options.quiet){
+                                    console.log("no resource on server:  " + msg.serverPath);
+                                }
                                 log.noResource++;
                                 break;
                             case '5':
-                                console.log("error :  " + msg.serverPath);
+                                if(options.quiet){
+                                    console.log("error :  " + msg.serverPath);
+                                }
                                 errorCount[msg.serverPath] == undefined ? errorCount[msg.serverPath] = 1 : errorCount[msg.serverPath]++;
                                 if(errorCount[msg.serverPath] < options.errorLimit){
                                     options.list.push(msg);
@@ -44,14 +56,18 @@ const wgdown = (options)=>{
                                 }
                                 break;
                             case '3':
-                                console.log("problem @:  " + msg.serverPath);
+                                if(options.quiet){
+                                    console.log("problem @:  " + msg.serverPath);
+                                }
                                 options.list.push(msg);
                                 if(fs.existsSync(msg.localPath)){
                                     fs.unlinkSync(msg.localPath);
                                 }
                                 break;
                             default:
-                                console.log("unknown child message");
+                                if(options.quiet){
+                                    console.log("unknown child message");
+                                }
                         }
                         parent(options);
                     })

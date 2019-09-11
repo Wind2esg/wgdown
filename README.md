@@ -27,7 +27,7 @@ This tool uses child_process to act async download and Retry if the file is down
 + `options.callback(log, errorList)` Callback when then job done.
   + `log` It is a log for the job. `exist` How many files are already at local. `noResource` The number of files which don't exist on server. `download` The number of files downloaded. `error` How many files couldn't be downloaded because of error. `child` Stands for the number of child processes.
   + `errorList` It is the list of `object.serverPath`, recording urls not be downloaded.
-
++ `options.quiet` if `false`, print information. default `true`.
 ### example
 ```
 downloadList.push({serverPath:<resource url>, localPath:<local path>});
