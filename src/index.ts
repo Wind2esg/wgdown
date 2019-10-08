@@ -55,13 +55,12 @@ export class Wgdown {
         public options: Options,
         childPath: string = './node_modules/wgdown/child'
     ){
-        this.log = {
-            exist: 0,
-            noResource: 0,
-            download: 0,
-            error: 0,
-            child: 0
-        };
+        this.log = {} as Log;
+        this.log.exist = 0;
+        this.log.noResource= 0;
+        this.log.download = 0;
+        this.log.error = 0;
+        this.log.child = 0;
         this.errorList = [];
         this.childPath = childPath;
     }
@@ -76,7 +75,7 @@ export class Wgdown {
         }
 
         this.log.child++;
-        let errorCount : ErrorCount;
+        let errorCount = {} as ErrorCount;
         let target: DownloadTarget = this.options.list[0];
         
         fork(this.childPath, [target.serverPath, target.localPath])

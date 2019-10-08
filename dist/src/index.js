@@ -18,13 +18,12 @@ const child_process_1 = require("child_process");
 class Wgdown {
     constructor(options, childPath = './node_modules/wgdown/child') {
         this.options = options;
-        this.log = {
-            exist: 0,
-            noResource: 0,
-            download: 0,
-            error: 0,
-            child: 0
-        };
+        this.log = {};
+        this.log.exist = 0;
+        this.log.noResource = 0;
+        this.log.download = 0;
+        this.log.error = 0;
+        this.log.child = 0;
         this.errorList = [];
         this.childPath = childPath;
     }
@@ -36,7 +35,7 @@ class Wgdown {
             this.options.quiet = true;
         }
         this.log.child++;
-        let errorCount;
+        let errorCount = {};
         let target = this.options.list[0];
         child_process_1.fork(this.childPath, [target.serverPath, target.localPath])
             .on('message', (message) => {
