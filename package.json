@@ -27,5 +27,12 @@
   },
   "devDependencies": {
     "typescript": "^3.6.3"
-  }
+  },
+  "files":[
+    "dist",
+    "child.js",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ]
 }
