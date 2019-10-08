@@ -19,14 +19,15 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
-const process = require("process");
+const _process = require("process");
 const request = require("request");
 new Promise((resolve, reject) => {
     let msg = {};
-    msg.serverPath = process.argv[2];
-    msg.localPath = process.argv[3];
+    msg.serverPath = _process.argv[2];
+    msg.localPath = _process.argv[3];
     msg.size = 0;
     msg.result = '0';
+    let process = _process;
     if (fs.existsSync(msg.localPath)) {
         msg.result = '1';
         process.send(JSON.stringify(msg));
@@ -45,7 +46,8 @@ new Promise((resolve, reject) => {
         if (response.statusCode == 200) {
             // console.log("download :  " + msg.serverPath);
             // console.log("content-length:  " +  response.headers["content-length"]);
-            msg.size = response.headers["content-length"];
+            let contentLength = response.headers["content-length"];
+            msg.size = parseInt(contentLength);
             let ws = fs.createWriteStream(msg.localPath);
             rs.pipe(ws.on('error', (err) => {
                 console.log(msg.localPath);

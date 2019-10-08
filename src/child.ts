@@ -18,7 +18,7 @@
  */
 
 import fs = require('fs');
-import process = require('process');
+import _process = require('process');
 import request = require('request');
 
 import { Message } from './index';
@@ -26,10 +26,12 @@ import { Message } from './index';
 new Promise((resolve: Function, reject: Function)=>{
     
     let msg = {} as Message;
-    msg.serverPath = process.argv[2];
-    msg.localPath = process.argv[3];
+    msg.serverPath = _process.argv[2];
+    msg.localPath = _process.argv[3];
     msg.size = 0;
     msg.result = '0';
+
+    let process: any = _process;
 
     if(fs.existsSync(msg.localPath)){
         msg.result = '1';
@@ -48,9 +50,8 @@ new Promise((resolve: Function, reject: Function)=>{
             })
     .on('response', (response)=>{
         if(response.statusCode == 200){
-        // console.log("download :  " + msg.serverPath);
-        // console.log("content-length:  " +  response.headers["content-length"]);
-            msg.size = response.headers["content-length"];
+            let contentLength: any = response.headers["content-length"];
+            msg.size = parseInt(contentLength);
             let ws = fs.createWriteStream(msg.localPath);
             rs.pipe(ws.on('error',(err)=>{
                     console.log(msg.localPath);
@@ -62,9 +63,7 @@ new Promise((resolve: Function, reject: Function)=>{
                     return ;
                 })
                 .on('finish',()=>{
-                    // console.log(msg.localPath + ' finished');
                     if( msg.size > ws.bytesWritten){
-                    // console.log("problem @:  "  + msg.serverPath);
                         ws.end();
                         msg.result = '3';
                         process.send(JSON.stringify(msg));

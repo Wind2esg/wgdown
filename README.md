@@ -76,7 +76,3 @@ let wgdown: Wgdown = new Wgdown(options);
 
 wgdown.download();
 ```
-
-## help wanted
-child.ts
-process.send() tsc error.
