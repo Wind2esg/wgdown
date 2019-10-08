@@ -3,7 +3,7 @@
   "email": "wind2esg@gmail.com",
   "license": "MIT",
   "name": "wgdown",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "multi-process download",
   "main": "dist/src/index.js",
   "type": "dist/src/index.d.ts",
