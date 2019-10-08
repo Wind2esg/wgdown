@@ -53,7 +53,7 @@ require('wgdown')({
 ```
 + for ts  
 ```
-import { Log, Options, DownloadTarget, Wgdown } from "<package_path>/dist/src/index";
+import { Log, Options, DownloadTarget, Wgdown } from "wgdown";
 
 let list: Array<DownloadTarget> = [];
 
