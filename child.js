@@ -47,7 +47,7 @@ return new Promise((resolve, reject)=>{
         if(response.statusCode == 200){
         // console.log("download :  " + msg.serverPath);
         // console.log("content-length:  " +  response.headers["content-length"]);
-            size = response.headers["content-length"];
+            msg.size = response.headers["content-length"];
             let ws = fs.createWriteStream(msg.localPath);
             rs.pipe(ws.on('error',(err)=>{
                     console.log(msg.localPath);
@@ -60,7 +60,7 @@ return new Promise((resolve, reject)=>{
                 })
                 .on('finish',()=>{
                     // console.log(msg.localPath + ' finished');
-                    if( size > ws.bytesWritten){
+                    if( msg.size > ws.bytesWritten){
                     // console.log("problem @:  "  + msg.serverPath);
                         ws.end();
                         msg.result = '3';
