@@ -33,7 +33,7 @@ This tool uses child_process to act async download and Retry if the file is down
   + `errorList` It is the list of `object.serverPath`, recording urls not be downloaded.
 + `options.quiet` if `false`, print information. default `true`.
 
-+ `childPath` is your package_path with default value `'./node_modules/wgdown/dist/src/child'`
++ `childPath` is your package_path with default value `'./node_modules/wgdown/dist/src/child'`. PLEASE NOTICE according to `child_process.fork()`, this path is just file path, different with `require()` resolveing path.
 ### example
 + for commonjs
 ```

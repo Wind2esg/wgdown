@@ -21,7 +21,7 @@ import fs = require('fs');
 import process = require('process');
 import request = require('request');
 
-import { Message } from './index';
+import { Message } from 'wgdown';
 
 new Promise((resolve: Function, reject: Function)=>{
     

@@ -8,7 +8,7 @@
  *
  */
 
-import { Log, Options, DownloadTarget, Wgdown } from "../src/index";
+import { Log, Options, DownloadTarget, Wgdown } from "wgdown";
 
 let list: Array<DownloadTarget> = [];
 
@@ -27,6 +27,6 @@ options.callback = (log: Log, errorList: Array<string>)=>{
     console.log(errorList);
 };
 
-let wgdown: Wgdown = new Wgdown(options, './dist/src/child');
+let wgdown: Wgdown = new Wgdown(options, 'node_modules/wgdown/dist/src/child');
 
 wgdown.download();
