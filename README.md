@@ -19,8 +19,12 @@ This tool uses child_process to act async download and Retry if the file is down
 `npm install -save wgdown`
 
 ### use
-`require('wgdown')(options);`
++ for commonjs  
+`require('wgdown')(options, childPath = './node_modules/wgdown/child');`
++ for ts  
+`new Wgdown(options, childPath = './node_modules/wgdown/child').download();`
 
+### params
 + `options.list` An object array. The object in it contains the target resource url `object.serverPath` and your local path `object.localPath`.
 + `options.cpus` Numbers of the child processes. Commonly, it is the number of cpus.
 + `options.errorLimit` It would retry the url if times of error under `errorLimit`.
@@ -28,7 +32,10 @@ This tool uses child_process to act async download and Retry if the file is down
   + `log` It is a log for the job. `exist` How many files are already at local. `noResource` The number of files which don't exist on server. `download` The number of files downloaded. `error` How many files couldn't be downloaded because of error. `child` Stands for the number of child processes.
   + `errorList` It is the list of `object.serverPath`, recording urls not be downloaded.
 + `options.quiet` if `false`, print information. default `true`.
+
++ `childPath` is your package_path with default value `'./node_modules/wgdown/child'`
 ### example
++ for commonjs
 ```
 downloadList.push({serverPath:<resource url>, localPath:<local path>});
 
@@ -43,4 +50,29 @@ require('wgdown')({
         }
       }
     });
+```
++ for ts  
+```
+import { Log, Options, DownloadTarget, Wgdown } from "<package_path>/dist/src/index";
+
+let list: Array<DownloadTarget> = [];
+
+for (let i:number = 0; i < 10; i++){
+    let target:DownloadTarget = {serverPath: "http://some/some.jpg", localPath: `./test/${i}.jpg`};
+    list.push(target);
+}
+
+let options = {} as Options;
+options.list = list;
+options.cpus = 4;
+options.errorLimit = 2;
+options.quiet = true;
+options.callback = (log: Log, errorList: Array<string>)=>{
+    console.log(log);
+    console.log(errorList);
+};
+
+let wgdown: Wgdown = new Wgdown(options);
+
+wgdown.download();
 ```
