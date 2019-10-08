@@ -33,7 +33,7 @@ new Promise((resolve: Function, reject: Function)=>{
 
     if(fs.existsSync(msg.localPath)){
         msg.result = '1';
-        process.send && process.send(JSON.stringify(msg));
+        process.send!(JSON.stringify(msg));
         resolve();
         return ;
     }
@@ -42,20 +42,20 @@ new Promise((resolve: Function, reject: Function)=>{
     rs.on('error', (err)=>{
             console.log("error:  " + msg.serverPath + "   " + err);
             msg.result = '5';
-            process.send && process.send(JSON.stringify(msg));
+            process.send!(JSON.stringify(msg));
             resolve();
             return ;
             })
     .on('response', (response)=>{
         if(response.statusCode == 200){
-            msg.size = parseInt(response.headers["content-length"] as string);
+            msg.size = parseInt(response.headers["content-length"]!);
             let ws = fs.createWriteStream(msg.localPath);
             rs.pipe(ws.on('error',(err)=>{
                     console.log(msg.localPath);
                     console.log(err);
                     ws.end();
                     msg.result = '5';
-                    process.send && process.send(JSON.stringify(msg));
+                    process.send!(JSON.stringify(msg));
                     resolve();
                     return ;
                 })
@@ -63,19 +63,19 @@ new Promise((resolve: Function, reject: Function)=>{
                     if( msg.size > ws.bytesWritten){
                         ws.end();
                         msg.result = '3';
-                        process.send && process.send(JSON.stringify(msg));
+                        process.send!(JSON.stringify(msg));
                         resolve();
                         return ;
                     }
                     ws.end();
-                    process.send && process.send(JSON.stringify(msg));     
+                    process.send!(JSON.stringify(msg));     
                     resolve();
                     return ;
                 })
                 )
         }else{
             msg.result = '2';
-            process.send && process.send(JSON.stringify(msg));
+            process.send!(JSON.stringify(msg));
             resolve();
             return ;
         }
