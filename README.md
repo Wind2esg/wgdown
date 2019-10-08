@@ -20,9 +20,9 @@ This tool uses child_process to act async download and Retry if the file is down
 
 ### use
 + for commonjs  
-`require('wgdown')(options, childPath = './node_modules/wgdown/child');`
+`require('wgdown')(options, childPath = <default>);`
 + for ts  
-`new Wgdown(options, childPath = './node_modules/wgdown/child').download();`
+`new Wgdown(options, childPath = <default>).download();`
 
 ### params
 + `options.list` An object array. The object in it contains the target resource url `object.serverPath` and your local path `object.localPath`.
@@ -33,7 +33,7 @@ This tool uses child_process to act async download and Retry if the file is down
   + `errorList` It is the list of `object.serverPath`, recording urls not be downloaded.
 + `options.quiet` if `false`, print information. default `true`.
 
-+ `childPath` is your package_path with default value `'./node_modules/wgdown/child'`
++ `childPath` is your package_path with default value `'./node_modules/wgdown/dist/src/child'`
 ### example
 + for commonjs
 ```
@@ -76,3 +76,7 @@ let wgdown: Wgdown = new Wgdown(options);
 
 wgdown.download();
 ```
+
+## help wanted
+child.ts
+process.send() tsc error.
