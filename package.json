@@ -29,7 +29,7 @@
     "typescript": "^3.6.3"
   },
   "files": [
-    "dist",
+    "dist/src",
     "LICENSE",
     "package.json",
     "README.md"
