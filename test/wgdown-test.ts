@@ -27,6 +27,6 @@ options.callback = (log: Log, errorList: Array<string>)=>{
     console.log(errorList);
 };
 
-let wgdown: Wgdown = new Wgdown(options, './child');
+let wgdown: Wgdown = new Wgdown(options, './dist/src/child');
 
 wgdown.download();

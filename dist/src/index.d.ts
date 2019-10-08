@@ -11,6 +11,12 @@
  * type def
  * and parent
  */
+export interface Message {
+    serverPath: string;
+    localPath: string;
+    size: number;
+    result: string;
+}
 export interface Log {
     exist: number;
     noResource: number;

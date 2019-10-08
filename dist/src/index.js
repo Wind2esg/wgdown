@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const child_process_1 = require("child_process");
 class Wgdown {
-    constructor(options, childPath = './node_modules/wgdown/child') {
+    constructor(options, childPath = './node_modules/wgdown/dist/src/child') {
         this.options = options;
         this.log = {};
         this.log.exist = 0;

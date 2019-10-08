@@ -15,7 +15,7 @@
 import { existsSync, unlinkSync } from 'fs';
 import { fork } from 'child_process';
 
-interface Message{
+export interface Message{
     serverPath: string,
     localPath: string,
     size: number,
@@ -53,7 +53,7 @@ export class Wgdown {
 
     constructor(
         public options: Options,
-        childPath: string = './node_modules/wgdown/child'
+        childPath: string = './node_modules/wgdown/dist/src/child'
     ){
         this.log = {} as Log;
         this.log.exist = 0;
