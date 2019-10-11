@@ -4,9 +4,6 @@
 [![Build Status](https://img.shields.io/npm/v/wgdown)](https://www.npmjs.com/package/wgdown)
 [![Build Status](https://img.shields.io/npm/dm/wgdown)](https://www.npmjs.com/package/wgdown)
 
-
-
-
 A download tool of node with multi-process feature.  
 
 Basic is `request` , `pipe` and `writeStream`.  
