@@ -3,8 +3,8 @@
   "email": "wind2esg@gmail.com",
   "license": "MIT",
   "name": "wgdown",
-  "version": "2.1.9",
-  "description": "multi-process download",
+  "version": "2.1.10",
+  "description": "Node 真·多线程下载。A tool of multi-process downloading for node",
   "main": "dist/src/index.js",
   "type": "dist/src/index.d.ts",
   "scripts": {
@@ -18,7 +18,10 @@
   "keywords": [
     "node",
     "download",
-    "multi-process"
+    "multi-process",
+    "下载",
+    "多核",
+    "易用"
   ],
   "dependencies": {
     "wgdown": "^2.0.0",
